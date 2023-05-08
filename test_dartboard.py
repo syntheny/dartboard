@@ -20,6 +20,13 @@ Note: The module prevents running the functional test suite under Python or Pych
 
 A few Python library modules are used by dartboard and this test module.
 
+NOTE: Python unittest uses an alphabetic sorting of test methods, but the developer requires that
+      test cases be performed in the order as presented in the source file which serves two
+      purposes:
+        1. Allows an increasingly complex testing analysis of the API and features.
+        2. Easier referral back to source when a failure arises.
+      This "unsorting" is performed in the main procedure.
+
 Copyright 2023, Sammy Sousa Software, LLC.
 """
 import os
@@ -43,7 +50,29 @@ def prt(text):
         print('\n')
         leading_nl = False
     print(f"{datetime.now().strftime('%H:%M:%S.%f')}  {text}")
-    
+
+
+def addTestsToSuite(suite, test_class):
+    """
+    Extend the unittest suite with test methods from the specified test class.
+
+    Get the names from the test class. unittest.loader returns the list in sorted
+    order, but the unsorted order (as presented in the source file) is required.
+    """
+    lineno_names = []
+    for name in dir(test_class):
+        if name.startswith('test'):
+            func = getattr(test_class, name)
+            if callable(func):
+                lineno_names.append((func.__code__.co_firstlineno, name))
+    lineno_names.sort()
+    names = [ln[1] for ln in lineno_names]
+    suite.addTests(map(test_class, names))
+
+
+###################################################################################################
+###  Common DBTest Class
+###################################################################################################
 
 class DBTest:
     """Create a DartBoard instance and offer validation testing"""
@@ -52,7 +81,26 @@ class DBTest:
     randomizer: float = 0.0
 
     def create(self, *args, **kwargs):
-        """Create a DartBoard instance"""
+        """
+        Create a DartBoard instance from a list of (number, probabilility) tuples
+
+        Args:
+            *args: num_list (or may be specified as a keyword)
+            **kwargs: Optional keyword arguments for the DartBoard instance including:
+                - num_list: List of integers. Optional if supplied as a positional argument.
+                - errs: List or tuple of exceptions to be expected when creating DartBoard instance.
+                - seed: Integer seed for DartBoard creation.
+                - get_method: String of either "two-tier" or "probability" indicating the
+                  method for DartBoard value generation.
+
+        Returns:
+            DartBoard instance that has been created.
+
+        Raises:
+            AssertionError:     If expected errors were not raised or if a general exception
+                                occurred.
+            KeyboardInterrupt:  If keyboard interrupt occurred while creating DartBoard instance.
+        """
         self.num_list = kwargs.get('self.num_list')
         errs = kwargs.get('errs')
         seed = kwargs.get('seed')
@@ -85,13 +133,19 @@ class DBTest:
         return self.db
 
     def genDataSet(self, randomizer=0.0001, numbers=None):
-        """Generate the numbers/probability list, with optional starting list of numbers and 
-        probabilities. 
-        
-        The randomizer argument indicates the approximate size of the number set. 
-        A randomizer of 1 would create a number set of 1; randomizer of 0.1 would create a small 
-        number population of around 10 to 20. The smaller the randomized, the larger the number 
-        population. 
+        """
+        The genDataSet() method generates a list of numbers with corresponding probabilities,
+        starting from an optional given list of numbers and probabilities. The randomizer
+        parameter determines the approximate size of the number set, with a higher value
+        generating a smaller set. The method returns the list of number/probability pairs.
+
+        Parameters:
+            randomizer: a float indicating the range of randomness of probabilities,
+                        which also suggests the size of the number set.
+            numbers:    an optional list of number/probability pairs to start with
+
+        Returns:
+            A list of number/probability tuples.
         """
         self.randomizer = randomizer
         num = 1
@@ -117,7 +171,28 @@ class DBTest:
         return numbers
 
     def sample(self, sample_size=10, tolerance=None):
-        """Validate the DartBoard instance table, for {sample_size} iterations"""
+        """
+        Validate the DartBoard instance table, for {sample_size} iterations tolerance limits.
+
+        Args:
+            sample_size (int):          The number of random samples to collect. Default is 10.
+            tolerance (float or None):  The acceptable tolerance level for the deviation from
+                                        the predicted probabilities. If None, no validation
+                                        will be performed. Default is None.
+
+        Returns:
+            counts (dictionary): A dictionary with the count of each random number collected
+                                 during the validation process.
+
+        Raises:
+            AssertionError: If there are errors in the sampling validation.
+
+        Prints:
+          * The time it took to collect the sample and the time per sample.
+          * If there was a keyboard interrupt, the number of samples collected before the interrupt.
+          * If the deviations from the predicted probabilities were excessive, an error message
+            with the allowed and actual deviations.
+        """
         counts = {n[0]: 0 for n in self.num_list}
         interrupted = False
         start_time = time.time()
@@ -163,8 +238,13 @@ class DBTest:
         return counts
 
 
+###################################################################################################
+###  DartBoardUnitTest Class
+###################################################################################################
 class DartBoardUnitTest(unittest.TestCase, DBTest):
-
+    """
+    Short-term tests for checking valid and invalid API calls to the DartBoard class.
+    """
     def setUp(self):
         global leading_nl
         leading_nl = True
@@ -274,8 +354,13 @@ class DartBoardUnitTest(unittest.TestCase, DBTest):
         self.sample(500000, tolerance=20)
 
 
+###################################################################################################
+###  DartBoardFunctionalTest Class
+###################################################################################################
 class DartBoardFunctionalTest(unittest.TestCase, DBTest):
-    """Long-term functional tests to generate and verify large number of samples"""
+    """
+    Long-term functional tests to generate and verify large number of samples
+    """
 
     def setUp(self):
         global leading_nl
@@ -352,22 +437,6 @@ if not request_ut and not request_ft:
 if request_ft and not allow_debug and in_debug:
     print(f"ERROR: Using Python Debug for functional testing requires 'debug' override")
     sys.exit(2)
-
-
-def addTestsToSuite(suite, test_class):
-
-    # Get the names from the test class. unittest.loader returns the list in sorted
-    # order, but the unsorted order (as presented in the source file) is required.
-    lineno_names = []
-    for name in dir(test_class):
-        if name.startswith('test'):
-            func = getattr(test_class, name)
-            if callable(func):
-                lineno_names.append((func.__code__.co_firstlineno, name))
-    lineno_names.sort()
-    names = [ln[1] for ln in lineno_names]
-    suite.addTests(map(test_class, names))
-
 
 try:
     result = unittest.TestResult()
