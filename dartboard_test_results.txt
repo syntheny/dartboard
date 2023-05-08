@@ -1,82 +1,122 @@
-21:59:47.265859  Diveplane challenge example returned numbers #1: [2, 1, 7, 7, 7, 7, 2, 2, 7, 2, 1, 7, 2, 1, 1, 2]
-21:59:47.265859  Diveplane challenge example returned numbers #2: [1, 1, 1, 7, 2, 7, 7, 2, 2, 2, 7, 7, 2, 1, 2, 2]
-21:59:47.265859  Diveplane challenge example returned numbers #3: [2, 7, 7, 2, 7, 2, 1, 7, 2, 7, 7, 1, 1, 1, 2, 2]
-21:59:47.265859  Diveplane challenge example returned numbers #4: [2, 2, 7, 7, 2, 7, 1, 7, 2, 7, 1, 2, 1, 7, 2, 7]
-21:59:47.265859  Diveplane challenge example returned numbers #5: [1, 2, 7, 1, 2, 1, 7, 2, 7, 2, 2, 7, 1, 1, 2, 2]
-21:59:47.265859  Diveplane challenge example returned numbers #6: [1, 2, 1, 1, 2, 2, 1, 2, 1, 2, 2, 2, 1, 1, 1, 1]
-21:59:47.265859  Diveplane challenge example returned numbers #7: [7, 2, 2, 7, 2, 2, 1, 2, 7, 7, 2, 1, 7, 2, 2, 1]
-21:59:47.265859  Diveplane challenge example returned numbers #8: [7, 7, 2, 1, 7, 1, 7, 1, 7, 2, 1, 7, 2, 2, 7, 2]
-21:59:47.265859  Diveplane challenge example returned numbers #9: [1, 2, 2, 7, 2, 7, 1, 2, 2, 1, 2, 1, 1, 2, 7, 2]
-21:59:47.265859  Diveplane challenge example returned numbers #10: [1, 7, 7, 1, 7, 1, 2, 7, 1, 7, 2, 2, 7, 2, 1, 1]
+$ python3 test_dartboard.py unit func
+test_Empty (__main__.DartBoardUnitTest) ... ok
+test_very_small_population (__main__.DartBoardUnitTest) ...
 
-=== testChallengeHighIterations ====================
-21:59:47.281502  Test DartBoard (two-tier): numbers count: 3, 10000 iterations
-21:59:47.281502  Tier 1 size: 2
-21:59:47.297226  Initialization time= 0.000000000 sec
-21:59:47.297226  Collect time=        0.015723705 sec
-21:59:47.297226  Time per iteration=  0.000001572 sec
-21:59:47.297226  Checking counts
-21:59:47.297226  {1: 2517, 2: 4979, 7: 2504}
+23:24:40.334940  Generated 2 number/probability pairs
+ok
+test_small_population (__main__.DartBoardUnitTest) ...
 
-=== testRepeatableResults ====================
-21:59:47.297226  Test DartBoard (two-tier): numbers count: 3, 10000 iterations
-21:59:47.297226  Tier 1 size: 2
-21:59:47.297226  Initialization time= 0.000000000 sec
-21:59:47.297226  Collect time=        0.000000000 sec
-21:59:47.312895  Time per iteration=  0.000000000 sec
-21:59:47.312895  Checking counts
+23:24:40.335954  Generated 9 number/probability pairs
+ok
+testChallenge (__main__.DartBoardUnitTest) ...
 
-=== testRepeatableResults ====================
-21:59:47.312895  Test DartBoard (two-tier): numbers count: 3, 10000 iterations
-21:59:47.312895  Tier 1 size: 2
-21:59:47.317373  Initialization time= 0.004477024 sec
-21:59:47.317373  Collect time=        0.000000000 sec
-21:59:47.317373  Time per iteration=  0.000000000 sec
-21:59:47.317373  Checking counts
+23:24:40.338002  Generated 3 number/probability pairs
+23:24:40.338002  Requirements example returned num_list #1: [7, 1, 7, 7, 2, 1, 2, 2, 7, 2, 2, 2, 2, 1, 7, 2]
+23:24:40.338002  Requirements example returned num_list #2: [7, 2, 2, 2, 7, 2, 2, 2, 2, 7, 1, 1, 1, 7, 7, 7]
+23:24:40.338002  Requirements example returned num_list #3: [2, 2, 7, 2, 2, 1, 1, 2, 2, 2, 2, 2, 7, 7, 1, 7]
+23:24:40.338950  Requirements example returned num_list #4: [2, 1, 1, 2, 2, 2, 7, 7, 2, 2, 2, 2, 2, 7, 1, 2]
+23:24:40.338950  Requirements example returned num_list #5: [1, 2, 7, 7, 1, 2, 1, 7, 2, 7, 7, 2, 2, 1, 7, 7]
+23:24:40.338950  Requirements example returned num_list #6: [2, 7, 2, 7, 2, 7, 2, 2, 7, 7, 2, 1, 1, 7, 7, 1]
+23:24:40.338950  Requirements example returned num_list #7: [2, 7, 1, 1, 1, 2, 2, 2, 2, 1, 2, 1, 2, 2, 2, 2]
+23:24:40.339951  Requirements example returned num_list #8: [7, 2, 1, 7, 2, 2, 1, 1, 2, 2, 2, 2, 2, 2, 2, 1]
+23:24:40.339951  Requirements example returned num_list #9: [1, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 2, 7]
+23:24:40.339951  Requirements example returned num_list #10: [1, 2, 7, 2, 7, 7, 7, 2, 7, 2, 2, 2, 1, 7, 1, 7]
+ok
+test_large_population (__main__.DartBoardUnitTest) ...
 
-=== testSameProbability ====================
-21:59:47.327783  Test DartBoard (two-tier): numbers count: 1000, 100000 iterations
-21:59:47.327783  Tier 1 size: 1
-21:59:47.407309  Initialization time= 0.000000000 sec
-21:59:47.407309  Collect time=        0.079526901 sec
-21:59:47.407309  Time per iteration=  0.000000795 sec
-21:59:47.407309  Checking counts
-21:59:47.422804  ERROR: Count 133 for number 392 is above expected 130
+23:24:40.340950  Generated 999 number/probability pairs
+ok
+test_duplicate_number (__main__.DartBoardUnitTest) ...
 
-=== testSameProbabilitySimple ====================
-21:59:47.422804  Test DartBoard (simple): numbers count: 1000, 100000 iterations
-21:59:49.402212  Initialization time= 0.000000000 sec
-21:59:49.402212  Collect time=        1.979407549 sec
-21:59:49.402212  Time per iteration=  0.000019794 sec
-21:59:49.402212  Checking counts
-21:59:49.402212  ERROR: Count 136 for number 855 is above expected 130
+23:24:40.344951  Generated 1009 number/probability pairs
+ok
+test_prob_too_high (__main__.DartBoardUnitTest) ...
 
-=== testHighIteration ====================
-21:59:49.402212  Test DartBoard (two-tier): numbers count: 19997, 500000 iterations
-22:00:14.949087  Tier 1 size: 19717
-22:00:15.547128  Initialization time= 25.531311035 sec
-22:00:15.547128  Collect time=        0.598040342 sec
-22:00:15.547128  Time per iteration=  0.000001196 sec
+23:24:40.346949  Generated 999 number/probability pairs
+ok
+test_simple_method (__main__.DartBoardUnitTest) ...
 
-=== testHighIterationSimple ====================
-22:00:15.547128  Test DartBoard (simple): numbers count: 19997, 500000 iterations
-22:03:00.528793  Initialization time= 0.015709877 sec
-22:03:00.528793  Collect time=        164.965955496 sec
-22:03:00.528793  Time per iteration=  0.000329932 sec
+23:24:40.347948  Generated 10 number/probability pairs
+ok
+test_two_tier_method (__main__.DartBoardUnitTest) ...
 
-=== testLargeNumberCount ====================
-22:03:00.528793  Test DartBoard (two-tier): numbers count: 19997, 1000 iterations
-22:03:30.986617  Tier 1 size: 19717
-22:03:31.002484  Initialization time= 30.457823277 sec
-22:03:31.002484  Collect time=        0.015867710 sec
-22:03:31.002484  Time per iteration=  0.000015868 sec
+23:24:40.348949  Generated 95 number/probability pairs
+ok
+test_invalid_method (__main__.DartBoardUnitTest) ...
 
-=== testBillionIterations ====================
-22:03:31.002484  Test DartBoard (two-tier): numbers count: 19997, 1000000000 iterations
-22:04:02.269374  Tier 1 size: 19717
-22:30:28.210537  Initialization time= 31.266889334 sec
-22:30:28.226293  Collect time=        1585.941163063 sec
-22:30:28.226293  Time per iteration=  0.000001586 sec
-22:30:28.226293  Testing done
+23:24:40.348949  Generated 9 number/probability pairs
+ok
+test_seed (__main__.DartBoardUnitTest) ...
 
-Process finished with exit code 0
+23:24:40.349948  Generated 103 number/probability pairs
+ok
+test_repeated_seed (__main__.DartBoardUnitTest) ...
+
+23:24:40.349948  Generated 108 number/probability pairs
+ok
+test_small_population_validate (__main__.DartBoardUnitTest) ...
+
+23:24:40.351103  Generated 12 number/probability pairs
+23:24:40.351103  Collect time =        0.000000000 sec
+23:24:40.351103  Time per sample =     0.000000000 sec
+ok
+test_same_probability (__main__.DartBoardUnitTest) ...
+
+23:24:40.352127  Generated 1000 number/probability pairs
+23:24:40.445968  Collect time =        0.092820644 sec
+23:24:40.446975  Time per sample =     0.000000928 sec
+ok
+test_same_probability_simple (__main__.DartBoardUnitTest) ...
+
+23:24:40.447871  Generated 1000 number/probability pairs
+23:24:42.346650  Collect time =        1.897769690 sec
+23:24:42.347200  Time per sample =     0.000018978 sec
+ok
+test_large_population_validate (__main__.DartBoardUnitTest) ...
+
+23:24:42.348699  Generated 1011 number/probability pairs
+23:24:42.354792  Collect time =        0.004979134 sec
+23:24:42.354792  Time per sample =     0.000000996 sec
+ok
+test_very_large_population_validate (__main__.DartBoardUnitTest) ...
+
+23:24:42.391567  Generated 99952 number/probability pairs
+23:24:43.304666  Collect time =        0.671459198 sec
+23:24:43.305881  Time per sample =     0.000001343 sec
+ok
+test_high_iterations (__main__.DartBoardFunctionalTest) ...
+
+23:24:43.332648  Generated 9965 number/probability pairs
+23:24:43.842990  Collect time =        0.496399879 sec
+23:24:43.843169  Time per sample =     0.000000993 sec
+ok
+test_high_iterations_simple (__main__.DartBoardFunctionalTest) ...
+
+23:24:43.847000  Generated 10052 number/probability pairs
+23:26:27.849132  Collect time =        103.918613911 sec
+23:26:27.849132  Time per sample =     0.000207837 sec
+ok
+test_large_sample_size (__main__.DartBoardFunctionalTest) ...
+
+23:26:28.225331  Generated 1000074 number/probability pairs
+23:26:32.689522  Collect time =        0.001998663 sec
+23:26:32.690417  Time per sample =     0.000001999 sec
+ok
+test_large_sample_size_validate (__main__.DartBoardFunctionalTest) ...
+
+23:26:32.759563  Generated 100031 number/probability pairs
+23:26:34.326000  Collect time =        0.856190681 sec
+23:26:34.327012  Time per sample =     0.000001712 sec
+ok
+test_huge_sample_size (__main__.DartBoardFunctionalTest) ...
+
+23:26:34.826471  Generated 999619 number/probability pairs
+23:27:01.447938  Collect time =        21.319054127 sec
+23:27:01.448862  Time per sample =     0.000002132 sec
+ok
+
+----------------------------------------------------------------------
+Ran 22 tests in 141.152s
+
+OK
+23:27:01.486160  Testing done

@@ -13,7 +13,7 @@ a ValueError exception is raised during the instantiation.
 The DartBoard "getNumber" method is used to return a randomly selected number for the input list,
 using the associated probability of occurrence.
 
-Copyright 2022, Sammy Sousa Software, LLC.
+Copyright 2023, Sammy Sousa Software, LLC.
 """
 import math
 import random
@@ -28,7 +28,7 @@ class DartBoard:
     """
 
     def __init__(self, number_probability_list: 'list',
-                 *, seed: 'float'=None, get_method: 'str'='two-tier'):
+                 *, seed: 'float' = None, get_method: str = None):
         """
         :param number_probability_list:     List of tuples consisting of (number, probability)
         :keyword seed:                      Optional seed for random number generation
@@ -37,10 +37,17 @@ class DartBoard:
                                             otherwise, use the two-tier selection method.
         """
 
-        # Because many transformations are performed on the probabilities, 
+        if not number_probability_list:
+            raise ValueError("DartBoard instantiation requires a list of "
+                                 "(number,probability) pairs")
+
+        # Because many transformations are performed on the probabilities,
         # separate the numbers and probabilities into two lists.
         self.numbers = []
         self.probabilities = []
+        self.seed = seed
+        self.method = get_method
+
         for n, p in number_probability_list:
             self.numbers.append(n)
             self.probabilities.append(p)
@@ -50,19 +57,20 @@ class DartBoard:
 
         random.seed(seed)
 
-        if get_method == 'simple':
+        self._checkInput()
+
+        if self.method == 'simple':
             self.getNumber = self._getNumberSimple
             self.__numbers = []
             self.weights = []
             for (n, p) in number_probability_list:
                 self.__numbers.append(n)
                 self.weights.append(p)
-        else:
+        elif self.method in [None, 'two-tier', 'twotier', 'two']:
             self.getNumber = self._getNumberTwoTier
-            self._checkInput()
-            self._normalizeProbabilities()
-            self._createWeightGroups()
-            self._createSelectionTable()
+        else:
+            raise ValueError(f"Invalid get_method: {self.method}")
+
 
     def _checkInput(self):
         """Verify no duplicate number and probabilities < 1.0"""
@@ -70,7 +78,7 @@ class DartBoard:
         for i, n in enumerate(self.numbers):
             if n in number_dup_check:
                 raise ValueError(f"Number {n} in position {i} is a "
-                                 f"duplicate of position {number_dup_check[n]}")
+                                     f"duplicate of position {number_dup_check[n]}")
             number_dup_check[n] = i
         for i, p in enumerate(self.probabilities):
             if p >= 1.0:
@@ -134,7 +142,7 @@ class DartBoard:
 
     def _createSelectionTable(self):
         """Create a random selection table where each weight group is repeated for
-        respective probability and for each member. The number
+        respective probability and for each member.
 
         Because of the possible immensity of selection table, the corresponding
         dictionary element is deleted (popped) as creation of the table proceeds.
@@ -165,3 +173,8 @@ class DartBoard:
     def getNumber(self):
         """Return a randomly selected number--virtual method replaced with simple or two-tier"""
         print("ERROR: getNumber not implemented")
+
+    def createTable(self):
+        self._normalizeProbabilities()
+        self._createWeightGroups()
+        self._createSelectionTable()
